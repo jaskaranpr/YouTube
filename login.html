@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-container {
+        border: var(--border);
+        width: 60%;
+        height: 70%;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #login-form {
+
+        width: 50%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    form {
+        margin: 20px 0px;
+    }
+
+    input {
+        border-radius: 3px;
+        width: 200px;
+        border: none;
+        padding: 5px;
+        background-color: var(--primary-color);
+        color: var(--left-nav-color);
+    }
+
+    button {
+        border-radius: 3px;
+        background-color: var(--primary-color);
+        color: var(--left-nav-color);
+        border: none;
+        width: 90px;
+        padding: 5px;
+    }
+
+    p {
+        font-weight: 200;
+        font-size: 15px;
+        color: var(--primary-color)
+    }
+
+    a {
+        color: rgba(97, 126, 255, 0.911);
+    }
+</style>
+
+<body>
+    <div class="login-container">
+        <div id="login-form">
+            <h1>Login</h1>
+            <form class="form">
+                <input type="text" id="login-username" placeholder="Username" />
+                <input type="text" id="login-password" placeholder="Password" />
+            </form>
+            <button class="log-btn" onclick="Login()">Login</button>
+        </div>
+        <p>Dont have an account?, <a href="create.html">create Account</a></p>
+    </div>
+</body>
+
+</html>
+<script>
+    async function Login() {
+        try {
+            let login_data = {
+                username: document.querySelector("#login-username").value,
+                password: document.querySelector("#login-password").value,
+            }
+            login_data = JSON.stringify(login_data)
+            let url = `https://masai-api-mocker.herokuapp.com/auth/login`
+            let res = await fetch(url, {
+                method: "POST",
+                body: login_data,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            let data = await res.json()
+            if (!data.error) {
+                alert("Login succeed")
+                location.href = "index.html"
+            }
+        }
+        catch (worng) {
+            alert("wrong credentials")
+        }
+
+
+
+    }
+
+</script>

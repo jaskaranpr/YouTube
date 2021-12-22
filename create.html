@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-container {
+        border: var(--border);
+        width: 60%;
+        height: 70%;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #register-form {
+
+        width: 50%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    form {
+        margin: 20px 0px;
+    }
+
+    input {
+        border-radius: 3px;
+        width: 200px;
+        margin-top: 10px;
+        border: none;
+        padding: 5px;
+        background-color: var(--primary-color);
+        color: var(--left-nav-color);
+    }
+
+    button {
+        border-radius: 3px;
+        background-color: var(--primary-color);
+        color: var(--left-nav-color);
+        border: none;
+        width: 90px;
+        padding: 5px;
+    }
+
+    p {
+        font-weight: 200;
+        font-size: 15px;
+        color: var(--primary-color)
+    }
+
+    a {
+        color: rgba(97, 126, 255, 0.911);
+    }
+</style>
+
+<body>
+    <div class="login-container">
+        <div id="register-form">
+            <h1>Register</h1>
+            <form>
+                <input type="text" id="name" placeholder="Name" />
+                <input type="email" id="email" placeholder="Email" /> <br>
+                <input type="password" id="password" placeholder="Password" />
+                <input type="text" id="username" placeholder="Username" /> <br>
+                <input type="number" id="mobile" placeholder="Mobile" />
+                <input type="text" id="description" placeholder="Description" />
+            </form>
+            <button onclick="Register()">Signup</button>
+        </div>
+        <p>already have an account?, <a href="login.html">login now</a></p>
+    </div>
+</body>
+
+</html>
+<script>
+    async function Register() {
+        let form = document.querySelector("form")
+
+        let signup_data = {
+            name: form.name.value,
+            email: form.email.value,
+            password: form.password.value,
+            username: form.username.value,
+            mobile: form.mobile.value,
+            description: form.description.value,
+        }
+        signup_data = JSON.stringify(signup_data)
+        let url = `https://masai-api-mocker.herokuapp.com/auth/register`
+        let res = await fetch(url, {
+            method: "POST",
+            body: signup_data,
+            headers: {
+                "Content-Type": "application/json",
+            },
+
+        })
+        let data = await res.json()
+
+    }
+</script>
